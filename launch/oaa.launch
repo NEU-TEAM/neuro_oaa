@@ -3,7 +3,10 @@
 <launch>
 
   <!-- Initialize robot arm and hand -->
-  
+  <include file="$(find neurofull_moveit_config)/launch/neurofull_botharm.launch"/>
+
+  <!-- Initialize navigation -->
+  <include file="$(find neu_launch)/launch/hj_slam.launch"/>
 
   <!-- Initialize vision system on host machine -->
   <include file="$(find drv_brain)/launch/drv_v2_host.launch">
@@ -14,5 +17,8 @@
 
     <arg name="recog_method" value="0"/>
   </include>
+
+  <!-- Initialize voice control -->
+  <include file="$(find robot)/launch/robot.launch" respawn="true"/>
 
 </launch>
