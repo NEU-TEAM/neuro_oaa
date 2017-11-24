@@ -1,10 +1,9 @@
 # Base:
-### Subscribe
-/ctrl/vision/grasp/location geometry_msgs/PoseStamped
-/ctrl/voice/nav_location_goal geometry_msgs/PoseStamped
-
-### Publish
-/feed/base/task_status std_msgs/Int8 -1: out of time & aborted 1: success 0: else
+| Pub/Sub |  ID  | Topic | Type | Explanation |
+| ------- | ---- | ----  | ---- |------------ |
+|   Sub   |      | /ctrl/vision/grasp/location   | geometry_msgs/PoseStamped | Offset value between Robot base_link and target |
+|   Sub   |      | /ctrl/voice/nav_location_goal | geometry_msgs/PoseStamped | Map location goal for robot |
+|   Pub   |      | /feed/base/task_status        | std_msgs/Int8             | -1: out of time & aborted 1: success 0: else |
 
  ---
 # Arm:
