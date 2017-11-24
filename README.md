@@ -11,7 +11,7 @@
 | ------- | ---- | ----  | ---- |------------ |
 |   Sub   | 4001 | /ctrl/vision/grasp/pose    | geometry_msgs/PoseStamped | Target pose in robot base_link frame |
 |   Sub   | 5001 | /ctrl/voice/arm/left       | std_msgs/Int8             | State value for controling robot left arm. 1: reset 2: open left 																			    gripper 3: move forward 4: move backward 5: move left 6: move right |
-|   Pub   | 2000 | /feed/arm/left/move/result | std_msgs/Int8             | -1: out of time & aborted 1: success 0: else |
+|   Pub   | 2000 | /feed/arm/left/move/result | std_msgs/Int8             | 1: success 0: else |
 
  ---
 # Vision (4)
