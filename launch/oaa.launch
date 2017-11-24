@@ -3,7 +3,7 @@
 <launch>
 
   <!-- Initialize robot arm and hand -->
-  <include file="$(find neurofull_moveit_config)/launch/neurofull_botharm.launch"/>
+  <include file="$(find neurofull_moveit_config)/launch/neurobot_arms.launch"/>
 
   <!-- Initialize navigation -->
   <include file="$(find neu_launch)/launch/hj_slam.launch"/>
