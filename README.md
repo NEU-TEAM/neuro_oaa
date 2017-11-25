@@ -13,6 +13,7 @@
 |   Sub   | 4002 | /ctrl/vision/detect/table  | geometry_msgs/PoseStamped | Table pose in map frame |
 |   Sub   | 5001 | /ctrl/voice/arm/left       | std_msgs/Int8             | State value for controlling robot left arm. 1: reset 2: open left gripper 3: move forward 4: move backward 5: move left 6: move right |
 |   Pub   | 2000 | /feed/arm/left/move/result | std_msgs/Int8             | 1: success 0: else |
+|   Pub   | 2001 | /feed/arm/left/ik/plan/result | std_msgs/Int8          | 1: success -1: failed 0: else |
 
  ---
 # Vision (4)
