@@ -3,9 +3,11 @@ These bash scripts are for quick launching NEUROBOT from workstation, to use thi
 robt and the workstation are in the same local network.
 ### Prerequisites
 1. Install expect
+2. It is recommended that we add neuro/bin to $PATH, so that we can run scripts by name (without ./ before that).
+Otherwise, you may need to `roscd neuro/bin` and run the code with `./`.
+3. Change the permission if necessary. For example: `chmod u+x start_oaa.bash`
 ### Using it
-1. `roscd neuro_oaa/bin`, which will make sure we are in the right working directory.
-2. `./start_oaa.bash`, to start all functions of NEUROBOT.
-3. `./start_vision.bash`, to start only the vision functions.
-4. `./to_host.tcl`, to quick ssh to robot without input password. Nevertheless, you may need modify
+1. `./start_oaa.bash`, to start all functions of NEUROBOT.
+2. `./start_vision.bash`, to start only the vision functions.
+3. `./to_host.tcl`, to quick ssh to robot without input password. Nevertheless, you may need modify
 the IP in it

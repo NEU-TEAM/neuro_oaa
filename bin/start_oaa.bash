@@ -10,10 +10,11 @@
 
 ## Define host name, check this with `hostname` on host machine 
 HOST_NAME=neurobot
+## Get path for this script
+BASE_PATH=$(cd `dirname $0`; pwd)
 
 setLocalMaster(){
     echo -e "\033[32m> MASTER_IP is: $1\033[0m"
-    echo export MASTER_IP=$1 >> ~/.bashrc
 
     ## Delete original ROS_MASTER_URI
     sed -i '/ROS_MASTER_URI/d' ~/.bashrc
@@ -28,8 +29,8 @@ setRemote(){
     ## \Enter change another line, no space in between
     # output=$(./ip_host.tcl $1)
     # if [[ $output =~ "$HOST_NAME" ]]
-    ./host_ip.tcl $1 1>temp.txt 2>&1
-    grep -q "$HOST_NAME" temp.txt
+    ${BASE_PATH}/host_ip.tcl $1 1>${BASE_PATH}/temp.txt 2>&1
+    grep -q "$HOST_NAME" ${BASE_PATH}/temp.txt
     if [ $? -eq 0 ]
     then
     	## Host name match, so this is the robot's machine
@@ -88,11 +89,11 @@ done
 ## Param for remote login
 PASSWORD='aicrobo'
 
-gnome-terminal -t "roscore" -x bash -c "expect launch_roscore.tcl $ROBOT_IP $PASSWORD;exec bash;"
+gnome-terminal -t "roscore" -x bash -c "expect ${BASE_PATH}/launch_roscore.tcl $ROBOT_IP $PASSWORD;exec bash;"
 ## Wait for 4 seconds to let roscore start
 sleep 4
 ## Launch roscore
-gnome-terminal -t "neurobot" -x bash -c "expect launch_neurobot.tcl $ROBOT_IP $PASSWORD;exec bash;"
+gnome-terminal -t "neurobot" -x bash -c "expect ${BASE_PATH}/launch_neurobot.tcl $ROBOT_IP $PASSWORD;exec bash;"
 ## Launch neurobot launch files
 gnome-terminal -t "vision_service" -x bash -c "roslaunch drv_brain drv_v2_workstation.launch;exec bash;"
 
