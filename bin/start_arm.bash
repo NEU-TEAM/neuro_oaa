@@ -96,5 +96,7 @@ gnome-terminal -t "roscore" -x bash -c "expect ${BASE_PATH}/launch_roscore.tcl $
 sleep 4
 ## Launch roscore
 gnome-terminal -t "neurobot" -x bash -c "expect ${BASE_PATH}/launch_arm.tcl $ROBOT_IP $PASSWORD;exec bash;"
+## Launch RVIZ
+gnome-terminal -t "rviz" -x bash -c "rviz"
 
 echo -e "\033[32m===============> NEUROBOT LAUNCHED <===============\033[0m"

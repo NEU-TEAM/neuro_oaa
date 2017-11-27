@@ -96,5 +96,7 @@ sleep 4
 gnome-terminal -t "neurobot" -x bash -c "expect ${BASE_PATH}/launch_neurobot.tcl $ROBOT_IP $PASSWORD;exec bash;"
 ## Launch neurobot launch files
 gnome-terminal -t "vision_service" -x bash -c "roslaunch drv_brain drv_v2_workstation.launch;exec bash;"
+## Launch RVIZ
+gnome-terminal -t "rviz" -x bash -c "rviz"
 
 echo -e "\033[32m===============> NEUROBOT LAUNCHED <===============\033[0m"
