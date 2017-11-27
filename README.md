@@ -10,7 +10,7 @@
 | Pub/Sub |  ID  | Topic | Type | Explanation |
 | ------- | ---- | ----  | ---- |------------ |
 |   Sub   | 4001 | /ctrl/vision/grasp/pose    | geometry_msgs/PoseStamped | Target pose in robot base_link frame |
-|   Sub   | 4002 | /ctrl/vision/detect/table  | geometry_msgs/PoseStamped | Table pose in map frame |
+|   Sub   | 4002 | /ctrl/vision/detect/table  | geometry_msgs/PoseStamped | Table pose in **base_link** frame |
 |   Sub   | 5001 | /ctrl/voice/arm/left       | std_msgs/Int8             | State value for controlling robot left arm. 1: reset 2: open left gripper 3: move forward 4: move backward 5: move left 6: move right |
 |   Pub   | 2000 | /feed/arm/left/move/result | std_msgs/Int8             | 1: success 0: else |
 |   Pub   | 2001 | /feed/arm/left/ik/plan/result | std_msgs/Int8          | 1: success -1: failed 0: else |
@@ -21,7 +21,7 @@
 | ------- | ---- | ----  | ---- |------------ |
 |   Pub   | 4000 | /ctrl/vision/grasp/location | geometry_msgs/PoseStamped | Relative distance to graspable area |
 |   Pub   | 4001 | /ctrl/vision/grasp/pose     | geometry_msgs/PoseStamped | Target pose in robot base_link frame |
-|   Pub   | 4002 | /ctrl/vision/detect/table   | geometry_msgs/PoseStamped | Table pose in map frame |
+|   Pub   | 4002 | /ctrl/vision/detect/table   | geometry_msgs/PoseStamped | Table pose in **base_link** frame |
 
  ---
 # Voice (5)
