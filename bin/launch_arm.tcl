@@ -21,7 +21,7 @@ expect {
 
 # Launch roscore
 expect {
-"$*" { send "roslaunch neurofull_moveit_config neurobot_arms.launch\r" }
+"$*" { send "roslaunch neuro_arm neuro_arm.launch\r" }
 }
 
 interact

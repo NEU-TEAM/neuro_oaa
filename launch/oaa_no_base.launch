@@ -3,7 +3,7 @@
 <launch>
 
   <!-- Initialize robot arm and hand -->
-  <include file="$(find neurofull_moveit_config)/launch/neurobot_arms.launch"/>
+  <include file="$(find neuro_arm)/launch/neuro_arm.launch"/>
 
   <!-- Initialize vision system on host machine -->
   <include file="$(find drv_brain)/launch/drv_v2_host.launch">
