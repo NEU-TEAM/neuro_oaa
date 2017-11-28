@@ -6,7 +6,7 @@
   <include file="$(find neurofull_moveit_config)/launch/neurobot_arms.launch"/>
 
   <!-- Initialize navigation -->
-  <include file="$(find neu_launch)/launch/hj_slam.launch"/>
+  <include file="$(find neu_launch)/launch/neu_base.launch"/>
 
   <!-- Initialize vision system on host machine -->
   <include file="$(find drv_brain)/launch/drv_v2_host.launch">
