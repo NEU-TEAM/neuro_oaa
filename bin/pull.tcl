@@ -28,8 +28,7 @@ expect {
 expect {
     "$*" { send "git pull\r" }
 }
-puts "\r"
-puts "============ Updated drv_package_v2 ============="
+puts "\r============ Updated drv_package_v2 ============="
 
 expect {
     "$*" { send "cd /home/aicrobo/catkin_ws/src/neuro_package/\r" }
@@ -70,5 +69,18 @@ expect {
     "$*" { send "git pull\r" }
 }
 puts "\r=============== Updated neuro_oaa ================="
+
+puts "\r============== All package updated ================="
+puts "\r================ Run catkin_make ==================="
+
+expect {
+    "$*" { send "cd /home/aicrobo/catkin_ws/src/\r" }
+}
+expect {
+    "$*" { send "catkin_make\r" }
+}
+expect {
+    "$*" { send puts "================ catkin_make finished =================" }
+}
 
 interact
