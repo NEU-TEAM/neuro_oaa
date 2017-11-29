@@ -5,12 +5,6 @@
 # Here the HOST_IP=ROS_MASTER_IP=ROS_IP
 set timeout 20
 
-# $argv0为脚本名字本身
-# $argv为命令行参数
-# [lrange $argv 0 0]表示第1个参数
-# [lrange $argv 0 4]为第一个到第五个参数
-# 与c语言不一样的地方在于，$argv不包含脚本名字本身
-
 ## Here argv 0 is the 1st param
 set MASTER_IP [lindex $argv 0]
 
