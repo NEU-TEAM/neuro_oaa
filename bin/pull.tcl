@@ -28,6 +28,7 @@ expect {
 expect {
     "$*" { send "git pull\r" }
 }
+puts "\r"
 puts "============ Updated drv_package_v2 ============="
 
 expect {
@@ -45,6 +46,22 @@ expect {
     "$*" { send "git pull\r" }
 }
 puts "================= Updated robot ==================="
+
+expect {
+    "$*" { send "cd /home/aicrobo/catkin_ws/src/neu_launch/\r" }
+}
+expect {
+    "$*" { send "git pull\r" }
+}
+puts "=============== Updated neu_launch ================="
+
+expect {
+    "$*" { send "cd /home/aicrobo/catkin_ws/src/odom_tf_package/\r" }
+}
+expect {
+    "$*" { send "git pull\r" }
+}
+puts "============ Updated odom_tf_package =============="
 
 expect {
     "$*" { send "cd /home/aicrobo/catkin_ws/src/neuro_oaa/\r" }
