@@ -80,7 +80,7 @@ expect {
     "$*" { send "catkin_make\r" }
 }
 expect {
-    "$*" { send puts "==========> catkin_make finished" }
+    "$*" { send "==========> catkin_make finished\r" }
 }
 
 interact
