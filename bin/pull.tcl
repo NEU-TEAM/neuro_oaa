@@ -79,8 +79,5 @@ expect {
 expect {
     "$*" { send "catkin_make\r" }
 }
-expect {
-    "$*" { send "==========> catkin_make finished\r" }
-}
 
 interact
