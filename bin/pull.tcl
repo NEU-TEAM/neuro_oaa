@@ -37,7 +37,7 @@ expect {
 expect {
     "$*" { send "git pull\r" }
 }
-puts "============= Updated neuro_package =============="
+puts "\r============= Updated neuro_package =============="
 
 expect {
     "$*" { send "cd /home/aicrobo/catkin_ws/src/robot/\r" }
@@ -45,7 +45,7 @@ expect {
 expect {
     "$*" { send "git pull\r" }
 }
-puts "================= Updated robot ==================="
+puts "\r================= Updated robot ==================="
 
 expect {
     "$*" { send "cd /home/aicrobo/catkin_ws/src/neu_launch/\r" }
@@ -53,7 +53,7 @@ expect {
 expect {
     "$*" { send "git pull\r" }
 }
-puts "=============== Updated neu_launch ================="
+puts "\r=============== Updated neu_launch ================="
 
 expect {
     "$*" { send "cd /home/aicrobo/catkin_ws/src/odom_tf_package/\r" }
@@ -61,7 +61,7 @@ expect {
 expect {
     "$*" { send "git pull\r" }
 }
-puts "============ Updated odom_tf_package =============="
+puts "\r============ Updated odom_tf_package =============="
 
 expect {
     "$*" { send "cd /home/aicrobo/catkin_ws/src/neuro_oaa/\r" }
@@ -69,6 +69,6 @@ expect {
 expect {
     "$*" { send "git pull\r" }
 }
-puts "=============== Updated neuro_oaa ================="
+puts "\r=============== Updated neuro_oaa ================="
 
 interact
