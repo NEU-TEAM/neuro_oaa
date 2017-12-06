@@ -10,8 +10,15 @@
 
 ## Define host name, check this with `hostname` on host machine 
 HOST_NAME=neurobot
+ROBOT_IP=192.168.1.107
+
+## Param for remote login
+PASSWORD='aicrobo'
+
 ## Get path for this script
 BASE_PATH=$(cd `dirname $0`; pwd)
+
+COMMAND=$1
 
 setLocalMaster(){
     echo -e "\033[32m> MASTER_IP is: $1\033[0m"
@@ -34,7 +41,7 @@ setRemote(){
     if [ $? -eq 0 ]
     then
     	## Host name match, so this is the robot's machine
-    	setLocalMaster ${IP}
+    	setLocalMaster $1
     	echo -e "\033[32m> ROS_IP and ROS_MASTER_URI set OK\033[0m"
     	return 0
     else
@@ -48,55 +55,74 @@ setRemote(){
 	# echo -e "\033[33mHost: Name mismatch\033[0m"
 }
 
-## Get workstation local IP by ifconfig
-echo -e "\033[32m===============> NEUROBOT STARTING <===============\033[0m"
-LOCAL_IP=`LC_ALL=C ifconfig|grep "192.168.1.[0-9]*"|grep -v "127.0.0.1"|cut -d: -f2|awk '{print $1}'`
-echo -e "\033[32m> SERVER_IP is: $LOCAL_IP\033[0m"
+searchIP(){
+    ## Get workstation local IP by ifconfig
+    echo -e "\033[32m===============> NEUROBOT STARTING <===============\033[0m"
+    LOCAL_IP=`LC_ALL=C ifconfig|grep "192.168.1.[0-9]*"|grep -v "127.0.0.1"|cut -d: -f2|awk '{print $1}'`
+    echo -e "\033[32m> SERVER_IP is: $LOCAL_IP\033[0m"
 
-## Simplified version
-## Delete original ROS_IP of workstation
-sed -i '/ROS_IP/d' ~/.bashrc
-## Add new ROS_IP for workstation
-echo export ROS_IP=${LOCAL_IP} >> ~/.bashrc
+    ## Simplified version
+    ## Delete original ROS_IP of workstation
+    sed -i '/ROS_IP/d' ~/.bashrc
+    ## Add new ROS_IP for workstation
+    echo export ROS_IP=${LOCAL_IP} >> ~/.bashrc
 
-## Find robot host in range
-ROBOT_IP=""
-for address in {101..110}
-do
-	IP=192.168.1.${address}
-	## If the IP is not equal to LOCAL_IP
-	if [ $(echo ${IP}|tr '.' '+'|bc) -ne $(echo ${LOCAL_IP}|tr '.' '+'|bc) ]
-	then
-		## No big difference in running time, use nmap by default
-		# ping -c1 $IP | grep -q "ttl" && addRemoteIP $IP && break
+    ## Find robot host in range
+    ROBOT_IP=""
+    for address in {101..110}
+    do
+        IP=192.168.1.${address}
+        ## If the IP is not equal to LOCAL_IP
+        if [ $(echo ${IP}|tr '.' '+'|bc) -ne $(echo ${LOCAL_IP}|tr '.' '+'|bc) ]
+        then
+            ## No big difference in running time, use nmap by default
+            # ping -c1 $IP | grep -q "ttl" && addRemoteIP $IP && break
 
-		## Robust version:
-		## Script after || will be executed no matter which && failed
-		## Use `` to get return value
-		## Use $? to represent the return of former function
-		nmap -sn ${IP} | grep -q "192.168.1.[0-9]*"
-		if [ $? -eq 0 ]
-		then
-			## We can check whether the host name is what we want
-			setRemote ${IP} && ROBOT_IP=${IP} && break
-		fi
-	fi
-done
+            ## Robust version:
+            ## Script after || will be executed no matter which && failed
+            ## Use `` to get return value
+            ## Use $? to represent the return of former function
+            nmap -sn ${IP} | grep -q "192.168.1.[0-9]*"
+            if [ $? -eq 0 ]
+            then
+                ## We can check whether the host name is what we want
+                setRemote ${IP} && ROBOT_IP=${IP} && break
+            fi
+        fi
+    done
+}
 
-################################################################################################
-## Launch neurobot
+launchROS(){
+    ## Launch neurobot
+    ## Param for remote login
+    PASSWORD='aicrobo'
 
-## Param for remote login
-PASSWORD='aicrobo'
+    gnome-terminal -t "roscore" -x bash -c "expect ${BASE_PATH}/launch_roscore.tcl $ROBOT_IP $PASSWORD;exec bash;"
+    ## Wait for 4 seconds to let roscore start
+    sleep 4
+    ## Launch roscore
+    gnome-terminal -t "neurobot" -x bash -c "expect ${BASE_PATH}/launch_neurobot.tcl $ROBOT_IP $PASSWORD;exec bash;"
+    ## Launch neurobot launch files
+    gnome-terminal -t "vision_service" -x bash -c "roslaunch drv_brain drv_v2_workstation.launch;exec bash;"
+    ## Launch RVIZ
+    gnome-terminal -t "rviz" -x bash -c "rviz"
 
-gnome-terminal -t "roscore" -x bash -c "expect ${BASE_PATH}/launch_roscore.tcl $ROBOT_IP $PASSWORD;exec bash;"
-## Wait for 4 seconds to let roscore start
-sleep 4
-## Launch roscore
-gnome-terminal -t "neurobot" -x bash -c "expect ${BASE_PATH}/launch_neurobot.tcl $ROBOT_IP $PASSWORD;exec bash;"
-## Launch neurobot launch files
-gnome-terminal -t "vision_service" -x bash -c "roslaunch drv_brain drv_v2_workstation.launch;exec bash;"
-## Launch RVIZ
-gnome-terminal -t "rviz" -x bash -c "rviz"
+    echo -e "\033[32m===============> NEUROBOT LAUNCHED <===============\033[0m"
+}
 
-echo -e "\033[32m===============> NEUROBOT LAUNCHED <===============\033[0m"
+if [ $# == 1 ]
+then
+    if [ ${COMMAND} = "-s" ]
+    then
+        searchIP
+        launchROS
+    elif [ ${COMMAND} = "-h" ]
+    then
+        echo "Command: oaa.bash -s Perform IP search."
+        echo "Command: oaa.bash -h Show this help."
+    else
+        echo "Unrecognized param, use -h to see help."
+    fi
+else
+    launchROS
+fi

@@ -109,10 +109,19 @@ launchROS(){
     echo -e "\033[32m===============> NEUROBOT LAUNCHED <===============\033[0m"
 }
 
-if [ ${COMMAND} = "s" ]
+if [ $# == 1 ]
 then
-    searchIP
-    launchROS
+    if [ ${COMMAND} = "-s" ]
+    then
+        searchIP
+        launchROS
+    elif [ ${COMMAND} = "-h" ]
+    then
+        echo "Command: oaa.bash -s Perform IP search."
+        echo "Command: oaa.bash -h Show this help."
+    else
+        echo "Unrecognized param, use -h to see help."
+    fi
 else
     launchROS
 fi
