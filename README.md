@@ -48,3 +48,4 @@ with the name of that module, like /vision
 | Name                    |  Set      | Get     |  Delete    | Type       | Explanation                                                              |
 | ----------------------- | --------- | ------  | ---------- | ---------- |------------------------------------------------------------------------- |
 | /comm/param/ctrl/is_put | voice arm | vision  | vision     | int        | Whether the robot should put down the object in hand. 0: not put >=1 put |
+| /comm/param/ctrl/is_ready_to_serve  | vision  | voice  | - | bool       | Whether the robot capture voice, controlled by hand gesture |
